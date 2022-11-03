@@ -1,4 +1,4 @@
-import { fetchMusic } from "./requests.js";
+import { fetchLyrics } from "./requests.js";
 
 const form = document.querySelector("#search-form");
 
@@ -11,6 +11,6 @@ form.addEventListener("submit", (e) => {
   if (!lyrics) {
     alert("Lyrics required");
   } else {
-    fetchMusic(lyrics, artist);
+    fetchLyrics(lyrics, artist);
   }
 });

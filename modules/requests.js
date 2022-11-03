@@ -1,45 +1,31 @@
 import { urlBuilder } from "./urlBuilder.js";
+import { showListingLyrics } from "./renderListing.js";
+import { showPopUp } from "./modalHandler.js";
+import { showLoading } from "./loaderHandler.js";
 
-function showData(data) {
-  const resultField = document.getElementById("result");
-  resultField.innerHTML = `
-    <table class="lyrics-table" >
-      <tr>
-        <th>Artist</th>
-        <th>Song</th>
-        <th>Album</th>
-      </tr>
-      ${data.result
-        // .slice(0, 10)
-        .map(
-          (song) => `<tr>
-                    <td>
-                        <a target='_blank' href=${song['artist-link']}>${song.artist}</a>
-                    </td>
-                    <td>
-                      <a target='_blank' href=${song['song-link']}>${song.song}</a>
-                    </td>
-                    <td>
-                      <a target='_blank' href=${song['album-link']}>${song.song}</a>
-                    </td>
-
-                </tr>`
-        )
-        .join("")}
-    </table>
-  `;
-}
-
-
-export async function fetchMusic(searchValue, artist) {
+export async function fetchLyrics(searchValue, artist) {
+  showLoading(true);
   const searchResult = await fetch(
-    `${urlBuilder.getFetchMusic(searchValue, artist)}`
-  );
-  const data = await searchResult.json();
+    `${urlBuilder.getFetchLyrics(searchValue, artist)}`
+  ).then((result) => {
+    showLoading(false);
 
-  if (!data.result.length) {
-    alert("lyrics doesnt exist in this api");
-    console.log("lyrics doesnt exist in this ap");
+    return result;
+  });
+
+  if (searchResult.status === 200) {
+    const data = await searchResult.json();
+    showPopUp(false);
+    console.log(data);
+    showListingLyrics(data);
+  } else {
+    showPopUp(true);
+
+    // alert(`Status: ${searchResult.status}, message: ${searchResult.statusText}`);
   }
-  showData(data);
+
+  // if (!data.result.length) {
+  //   alert("lyrics doesnt exist in this api");
+  //   console.log("lyrics doesnt exist in this ap");
+  // }
 }

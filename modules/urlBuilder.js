@@ -1,7 +1,7 @@
 import { url, uid, tokenid } from "./parameters.js";
 
 class UrlBuilder {
-  getFetchMusic(searchValue, artist = "") {
+  getFetchLyrics(searchValue, artist = "") {
     return (
       `${url}?` +
       new URLSearchParams({
