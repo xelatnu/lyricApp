@@ -9,7 +9,7 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
 
   if (!lyrics) {
-    alert("Nothing to search");
+    alert("Lyrics required");
   } else {
     fetchMusic(lyrics, artist);
   }

@@ -39,7 +39,7 @@ export async function fetchMusic(searchValue, artist) {
 
   if (!data.result.length) {
     alert("lyrics doesnt exist in this api");
-    console.log("lyrics doesnt exist in this api");
+    console.log("lyrics doesnt exist in this ap");
   }
   showData(data);
 }
