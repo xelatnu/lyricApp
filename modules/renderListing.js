@@ -8,7 +8,6 @@ export function showListingLyrics(data) {
         <th>Album</th>
       </tr>
       ${data.result
-        // .slice(0, 10)
         .map(
           (song) => `<tr>
                     <td>
